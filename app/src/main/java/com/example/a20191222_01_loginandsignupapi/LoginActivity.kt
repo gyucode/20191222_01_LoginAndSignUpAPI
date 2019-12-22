@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.a20191222_01_loginandsignupapi.datas.User
 import com.example.a20191222_01_loginandsignupapi.utils.ConnectServer
+import com.example.a20191222_01_loginandsignupapi.utils.ContextUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 
@@ -36,18 +37,16 @@ class LoginActivity : BaseActivity() {
                         val data= json.getJSONObject("data")
                         val user = data.getJSONObject("user")
 
-//                        val userName = user.getString("name")
-//                        val userId =  user.getString("login_id")
-//                        val userPhone = user.getString("phone")
                         val userData = User.getUserDataFromJson(user)
 
-//                        val userData = User(userId,userName,userPhone)
+//                        서버에서 내려주는 토큰값을 파싱
+                        val token = data.getString("token")
 
+//                        sharedPreference로 반영구 저장
+                        ContextUtil.setUserToken(mContext, token)
 
                         val intent = Intent(mContext, MainActivity::class.java)
-                        intent.putExtra("name",userData.name)
-                        intent.putExtra("id",userData.loginId)
-                        intent.putExtra("phone",userData.phoneNum)
+                        intent.putExtra("user",userData)
                         startActivity(intent)
 
                     }

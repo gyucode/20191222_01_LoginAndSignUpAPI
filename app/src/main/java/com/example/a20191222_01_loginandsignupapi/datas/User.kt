@@ -1,8 +1,9 @@
 package com.example.a20191222_01_loginandsignupapi.datas
 
 import org.json.JSONObject
+import java.io.Serializable
 
-class User(id:String,name:String,phone:String) {
+class User(id:String,name:String,phone:String) :Serializable{
     var loginId = id // string으로 명시
     var name = name
     var phoneNum = phone
