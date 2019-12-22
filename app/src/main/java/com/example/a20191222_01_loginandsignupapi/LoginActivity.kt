@@ -32,6 +32,19 @@ class LoginActivity : BaseActivity() {
                     val code = json.getInt("code")
                     if(code == 200){
 
+                        val data= json.getJSONObject("data")
+                        val user = data.getJSONObject("user")
+
+                        val userName = user.getString("name")
+                        val userId =  user.getString("login_id")
+                        val userPhone = user.getString("phone")
+
+                        val intent = Intent(mContext, MainActivity::class.java)
+                        intent.putExtra("name",userName)
+                        intent.putExtra("id",userId)
+                        intent.putExtra("phone",userPhone)
+                        startActivity(intent)
+
                     }
                     else{
                         val message = json.getString("message")
