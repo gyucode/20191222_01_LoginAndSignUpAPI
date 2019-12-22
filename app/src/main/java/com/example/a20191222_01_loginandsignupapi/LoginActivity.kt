@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.a20191222_01_loginandsignupapi.datas.User
 import com.example.a20191222_01_loginandsignupapi.utils.ConnectServer
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
@@ -35,14 +36,18 @@ class LoginActivity : BaseActivity() {
                         val data= json.getJSONObject("data")
                         val user = data.getJSONObject("user")
 
-                        val userName = user.getString("name")
-                        val userId =  user.getString("login_id")
-                        val userPhone = user.getString("phone")
+//                        val userName = user.getString("name")
+//                        val userId =  user.getString("login_id")
+//                        val userPhone = user.getString("phone")
+                        val userData = User.getUserDataFromJson(user)
+
+//                        val userData = User(userId,userName,userPhone)
+
 
                         val intent = Intent(mContext, MainActivity::class.java)
-                        intent.putExtra("name",userName)
-                        intent.putExtra("id",userId)
-                        intent.putExtra("phone",userPhone)
+                        intent.putExtra("name",userData.name)
+                        intent.putExtra("id",userData.loginId)
+                        intent.putExtra("phone",userData.phoneNum)
                         startActivity(intent)
 
                     }
