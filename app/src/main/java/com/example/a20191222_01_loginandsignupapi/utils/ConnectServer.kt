@@ -64,5 +64,33 @@ class ConnectServer {
             })
 
         }
+        fun postRequestLogin(context:Context, id:String, pw:String, handler: JsonResponseHandler?){
+            val client = OkHttpClient()
+
+            val url = "${BASE_URL}/auth"
+
+            val formData = FormBody.Builder()
+                .add("login_id", id)
+                .add("password", pw)
+                .build()
+
+            val request = Request.Builder()
+                .url(url)
+                .post(formData)
+                .build()
+
+            client.newCall(request).enqueue(object :Callback{
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val body = response.body()!!.string()
+                    val json = JSONObject(body)
+                    handler?.onResponse(json)
+                }
+
+            })
+        }
     }
 }
