@@ -33,17 +33,20 @@ class EditBlackListActivity : BaseActivity() {
                         Log.d("게시글 등록",json.toString())
                         val code = json.getInt("code")
                         if(code == 200){
-
+                            runOnUiThread {
+                                Toast.makeText(mContext, "게시글이 등록 되었습니다", Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
                         }
-//                        else{
-//                            val message = json.getString("message")
-//                            runOnUiThread {
-//                                Toast.makeText(mContext,"${message}", Toast.LENGTH_SHORT).show()
-//                            }
+                        else {
+                            val message = json.getString("message")
+                            runOnUiThread {
+                                Toast.makeText(mContext, "${message}", Toast.LENGTH_SHORT).show()
+                            }
                         }
-
+                    }
                 })
-                }
+            }
 
     }
 
